@@ -1,0 +1,24 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "Serverless with github actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kuandriy/url-shortener.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kuandriy/url-shortener/issues"
+  },
+  "homepage": "https://github.com/kuandriy/url-shortener#readme",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.111",
+    "@types/node": "^18.14.4",
+    "@vercel/ncc": "^0.36.1"
+  }
+}
