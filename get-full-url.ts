@@ -15,8 +15,9 @@ export const handler: Handler = async (
 	const getItemParams = {
 		TableName,
 		Key: {
-			partition_key: { S: "test" }
+			partition_key: { S: `test` }
 		},
+		ProjectionExpression: "originalurl"
 	};
 
 	const dynamodbClient = new DynamoDBClient({ region: REGION });
