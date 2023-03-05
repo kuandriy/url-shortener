@@ -15,24 +15,15 @@ export const handler: Handler = async (
 
 	return JSON.stringify(
         {
-            requestContext: event.requestContext,
-            pathParameters: event.pathParameters,
-            body: event.body,
-            path: event.path,
-            resource: event.resource,
-            domainName: event.requestContext.domainName,
-            extendedRequestId: event.requestContext.extendedRequestId,
-            path1: event.requestContext.resourcePath,
-            resourceId: event.requestContext.resourceId,
-            localEvent: localEvent.path,
-            localEvent1: localEvent.requestContext.http.path,
+ 
+            localEvent1: localEvent.requestContext.http.path.split("/")[1],
 
             test:'test'
 
 
         }
         ) ;
-	const shortUrl = "event.pathParameters";
+	const shortUrl = localEvent.requestContext.http.path.split("/")[1];
 
 	// Get original Url from db
 	const getItemParams = {
