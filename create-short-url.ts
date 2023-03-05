@@ -11,7 +11,7 @@ export const handler: Handler = async (
 	event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResultV2> => {
 	const REGION = "us-east-1";
-	const TableName = "urlshortener";
+	const TableName = "short-to-original-url";
 
 	if (!event.body) {
 		return "Url is required";
@@ -37,7 +37,7 @@ export const handler: Handler = async (
 		Key: {
 			urlhash: { S: urlHash }
 		},
-		ProjectionExpression: "short"
+		ProjectionExpression: "shorturl"
 	};
 
 	const getItemCommand = new GetItemCommand(getItemByHashParams);
@@ -45,7 +45,7 @@ export const handler: Handler = async (
 	try {
 		const dbResult = await dynamodbClient.send(getItemCommand);
 		if (dbResult.Item) {
-			return dbResult.Item["short"].S.concat("     ", urlHash);
+			return dbResult.Item.shorturl.S.concat("     ", urlHash);
 		}
 	} catch (err) {
 		console.log(err);

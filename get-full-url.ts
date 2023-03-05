@@ -10,17 +10,22 @@ export const handler: Handler = async (
 	event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResultV2> => {
 	const REGION = "us-east-1";
-	const TableName = "urlshortener";
+	const TableName = "short-to-original-url";
 
-	const queryString = event.queryStringParameters;
-	if (!queryString || !queryString.shorturl) {
+	// Split the path by '/' character and extract the last portion of it
+	const pathSplit = event.path.split("/");
+
+	if (pathSplit.length == 1) {
 		return "Short url is required";
 	}
-    // Get original Url from db
+
+	const shortUrl = pathSplit[pathSplit.length - 1];
+
+	// Get original Url from db
 	const getItemParams = {
 		TableName,
 		Key: {
-			short: { S: queryString.shorturl }
+			shorturl: { S: shortUrl }
 		},
 		ProjectionExpression: "originalurl"
 	};
@@ -28,7 +33,7 @@ export const handler: Handler = async (
 	const dynamodbClient = new DynamoDBClient({ region: REGION });
 	const getItemCommand = new GetItemCommand(getItemParams);
 
-    // redirect to original url
+	// redirect to original url
 	try {
 		const dbResult = await dynamodbClient.send(getItemCommand);
 		const url = dbResult.Item.originalurl.S;
