@@ -26,6 +26,7 @@ jobs:
           npm ci
       - name: deploy
         run: |
+          npm i -g @vercel/ncc
           npx ncc build  create-short-url.ts --out dist/create-short-url
           npx ncc build  get-full-url.ts --out dist/get-full-url
           zip -j create-short-url.zip ./dist/create-short-url/*
