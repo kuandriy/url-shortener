@@ -13,6 +13,7 @@ export const handler: Handler = async (
 	// DB connect params, can come from environment vars
 	const REGION = "us-east-1";
 	const TableName = "short-to-original-url";
+    let domain = process.env.domain; // Lambda public URL in test
 
 	if (!event.body) {
 		return "Url is required";
@@ -51,7 +52,7 @@ export const handler: Handler = async (
 		if (!getItemResult) {
 			return "not found".concat(hashUrl);
 		}
-        return getItemResult;
+        return domain.concat('/', getItemResult[0].shorturl.S);
 	} catch (err) {
 		console.log(err);
 		return err;
