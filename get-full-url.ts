@@ -34,9 +34,9 @@ export const handler: Handler = async (
 		const url = dbResult.Item.originalurl.S;
 
 		const response = {
-			statusCode: 301,
+			statusCode: 302,
 			headers: {
-				Location: `'${url}'`
+				Location: `${url}`
 			}
 		};
 
