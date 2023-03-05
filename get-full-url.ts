@@ -15,7 +15,7 @@ export const handler: Handler = async (
 	const getItemParams = {
 		TableName,
 		Key: {
-			partition_key: { S: "test" }
+			partition_key: { shorturl: "test" }
 		},
 		ProjectionExpression: "originalurl"
 	};
