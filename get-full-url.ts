@@ -10,7 +10,7 @@ export const handler: Handler = async (
 	event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResultV2> => {
 	const REGION = "us-east-1";
-	const TableName = "short-to-original-url";s
+	const TableName = "short-to-original-url";
     const localEvent: any = {...event};
 
 	return JSON.stringify(
