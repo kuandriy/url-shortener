@@ -26,7 +26,7 @@ export const handler: Handler = async (
 	const url = data.url;
 
 	// Using url hash to query DB, to find if record already exist
-	const urlHash = crypto.createHash("md5").update(url).digest("hex");
+	const hashUrl = crypto.createHash("md5").update(url).digest("hex");
 
 	//DB object
 	const dynamodbClient = new DynamoDBClient({ region: REGION });
@@ -35,7 +35,7 @@ export const handler: Handler = async (
 	const getItemByHashParams = {
 		TableName,
 		Key: {
-			urlhash: { S: urlHash }
+			hashurl: { S: hashUrl }
 		},
 		ProjectionExpression: "shorturl"
 	};
@@ -45,8 +45,9 @@ export const handler: Handler = async (
 	try {
 		const dbResult = await dynamodbClient.send(getItemCommand);
 		if (dbResult.Item) {
-			return dbResult.Item.shorturl.S.concat("     ", urlHash);
+			return dbResult.Item.shorturl.S.concat("     ", hashUrl);
 		}
+        return  hashUrl;
 	} catch (err) {
 		console.log(err);
 		return err;
