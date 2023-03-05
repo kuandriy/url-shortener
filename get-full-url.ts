@@ -11,18 +11,9 @@ export const handler: Handler = async (
 ): Promise<APIGatewayProxyResultV2> => {
 	const REGION = "us-east-1";
 	const TableName = "short-to-original-url";
+    // Not sure why event.path is empty, creating object to parse 
     const localEvent: any = {...event};
 
-	return JSON.stringify(
-        {
- 
-            localEvent1: localEvent.requestContext.http.path.split("/")[1],
-
-            test:'test'
-
-
-        }
-        ) ;
 	const shortUrl = localEvent.requestContext.http.path.split("/")[1];
 
 	// Get original Url from db
