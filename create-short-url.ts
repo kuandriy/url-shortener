@@ -51,7 +51,7 @@ export const handler: Handler = async (
 		if (!getItemResult) {
 			return "not found".concat(hashUrl);
 		}
-        return getItemResult;
+        return getItemResult.shorturl.S;
 	} catch (err) {
 		console.log(err);
 		return err;
