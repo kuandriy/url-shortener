@@ -25,7 +25,7 @@ export const handler: Handler = async (
             path1: event.requestContext.resourcePath,
             resourceId: event.requestContext.resourceId,
             localEvent: localEvent.path,
-            localEvent1: localEvent.http,
+            localEvent1: localEvent.requestContext.http,
 
             test:'test'
 
