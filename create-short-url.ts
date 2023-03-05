@@ -45,12 +45,12 @@ export const handler: Handler = async (
 	try {
 		const dbResult = await dynamodbClient.send(getItemCommand);
 		if (dbResult.Item) {
-			return dbResult.Item.shorturl.S.concat("     ", hashUrl);
+			return dbResult.Item.shorturl.S.concat("items", hashUrl);
 		}
     return "not found".concat(hashUrl);
 	} catch (err) {
 		console.log(err);
-        return hashUrl;
+        return err;
 		//return err;
 	}
 };
