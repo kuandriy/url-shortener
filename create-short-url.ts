@@ -4,12 +4,13 @@ import {
 	Handler
 } from "aws-lambda";
 
-import { DynamoDBClient, GetItemCommand } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, QueryCommand } from "@aws-sdk/client-dynamodb";
 const crypto = require("crypto");
 
 export const handler: Handler = async (
 	event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResultV2> => {
+	// DB connect params, can come from environment vars
 	const REGION = "us-east-1";
 	const TableName = "short-to-original-url";
 
@@ -34,23 +35,29 @@ export const handler: Handler = async (
 	// Check if we  have short url for received url
 	const getItemByHashParams = {
 		TableName,
-		Key: {
-			hashurl: { S: hashUrl }
+		KeyConditionExpression: "#property = :value",
+		ExpressionAttributeNames: {
+			"#property": "hashurl"
+		},
+		ExpressionAttributeValues: {
+			":value": { S: hashUrl }
 		},
 		ProjectionExpression: "shorturl"
 	};
 
-	const getItemCommand = new GetItemCommand(getItemByHashParams);
-
 	try {
-		const dbResult = await dynamodbClient.send(getItemCommand);
-		if (dbResult.Item) {
-			return dbResult.Item.shorturl.S.concat("items", hashUrl);
+		const getItemResult = await queryDynamoDB(dynamodbClient, getItemByHashParams);
+		if (!getItemResult) {
+			return "not found".concat(hashUrl);
 		}
-    return "not found".concat(hashUrl);
 	} catch (err) {
 		console.log(err);
-        return err;
-		//return err;
+		return err;
 	}
 };
+
+async function queryDynamoDB(dynamodbClient, params) {
+	const command = new QueryCommand(params);
+	const data = await dynamodbClient.send(command);
+	return data.Items;
+}
