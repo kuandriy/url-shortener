@@ -25,7 +25,7 @@ export const handler: Handler = async (
 
 	try {
 		const response = await dynamodbClient.send(getItemCommand);
-		return response.Item;
+		return response.Item.originalurl.S;
 	} catch (err) {
         console.log(err);
 		return err;
