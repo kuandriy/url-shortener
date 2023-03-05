@@ -13,12 +13,8 @@ export const handler: Handler = async (
 	const TableName = "short-to-original-url";
 
 	// Split the path by '/' character and extract the last portion of it
+    return event.path;
 	const pathSplit = event.path.split("/");
-
-	if (pathSplit.length == 1) {
-		return "Short url is required";
-	}
-
 	const shortUrl = pathSplit[pathSplit.length - 1];
 
 	// Get original Url from db
