@@ -12,10 +12,14 @@ export const handler: Handler = async (
 	const REGION = "us-east-1";
 	const TableName = "urlshortener";
 
+	const queryString = event.queryStringParameters;
+	if (!queryString || !queryString.shorturl) {
+		return "Short url is requared";
+	} 
 	const getItemParams = {
 		TableName,
 		Key: {
-            "short": { S: "test" },
+			short: { S: queryString.shorturl }
 		},
 		ProjectionExpression: "originalurl"
 	};
@@ -27,7 +31,7 @@ export const handler: Handler = async (
 		const response = await dynamodbClient.send(getItemCommand);
 		return response.Item.originalurl.S;
 	} catch (err) {
-        console.log(err);
+		console.log(err);
 		return err;
 	}
 };
