@@ -10,12 +10,12 @@ export const handler: Handler = async (
 	event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResultV2> => {
 	const REGION = "us-east-1";
-	const TableName = "urls";
+	const TableName = "urlshortener";
 
 	const getItemParams = {
 		TableName,
 		Key: {
-            "shorturl": "test",
+            "partitionKey": { S: "test" },
 		},
 		ProjectionExpression: "originalurl"
 	};
