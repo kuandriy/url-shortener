@@ -13,10 +13,12 @@ export const handler: Handler = async (
 	const TableName = "short-to-original-url";
 
 	// Split the path by '/' character and extract the last portion of it
-    return event;
-	const pathSplit = event.path.split("/");
-	const shortUrl = pathSplit[pathSplit.length - 1];
-
+    //return event;
+	/*const pathSplit = event.path.split("/");
+	const shortUrl = pathSplit[pathSplit.length - 1];*/
+    const shortUrl = event.pathParameters;
+    
+    return shortUrl;
 	// Get original Url from db
 	const getItemParams = {
 		TableName,
