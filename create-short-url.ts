@@ -35,6 +35,7 @@ export const handler: Handler = async (
 	// Check if we  have short url for received url
 	const getItemByHashParams = {
 		TableName,
+        IndexName: 'hashurl-index',
 		KeyConditionExpression: "#property = :value",
 		ExpressionAttributeNames: {
 			"#property": "hashurl"
