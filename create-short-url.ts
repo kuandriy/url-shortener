@@ -50,6 +50,7 @@ export const handler: Handler = async (
         return  hashUrl;
 	} catch (err) {
 		console.log(err);
-		return err;
+        return hashUrl;
+		//return err;
 	}
 };
