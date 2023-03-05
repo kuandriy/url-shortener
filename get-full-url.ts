@@ -28,6 +28,6 @@ export const handler: Handler = async (
 		return response.Item;
 	} catch (err) {
         console.log(err);
-		throw err;
+		return err;
 	}
 };
