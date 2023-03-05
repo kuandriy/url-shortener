@@ -14,8 +14,9 @@ export const handler: Handler = async (
 
 	const queryString = event.queryStringParameters;
 	if (!queryString || !queryString.shorturl) {
-		return "Short url is requared";
-	} 
+		return "Short url is required";
+	}
+    // Get original Url from db
 	const getItemParams = {
 		TableName,
 		Key: {
@@ -27,9 +28,19 @@ export const handler: Handler = async (
 	const dynamodbClient = new DynamoDBClient({ region: REGION });
 	const getItemCommand = new GetItemCommand(getItemParams);
 
+    // redirect to original url
 	try {
-		const response = await dynamodbClient.send(getItemCommand);
-		return response.Item.originalurl.S;
+		const dbResult = await dynamodbClient.send(getItemCommand);
+		const url = dbResult.Item.originalurl.S;
+
+		const response = {
+			statusCode: 301,
+			headers: {
+				Location: `'${url}'`
+			}
+		};
+
+		return response;
 	} catch (err) {
 		console.log(err);
 		return err;
