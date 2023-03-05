@@ -12,7 +12,20 @@ export const handler: Handler = async (
 	const REGION = "us-east-1";
 	const TableName = "short-to-original-url";
 
-	return JSON.stringify(event.requestContext) ;
+	return JSON.stringify(
+        {
+            requestContext: event.requestContext,
+            pathParameters: event.pathParameters,
+            body: event.body,
+            path: event.path,
+            resource: event.resource,
+            domainName: event.requestContext.domainName,
+            extendedRequestId: event.requestContext.extendedRequestId,
+            path1: event.requestContext.path
+
+
+        }
+        ) ;
 	const shortUrl = "event.pathParameters";
 
 	// Get original Url from db
