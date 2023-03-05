@@ -12,13 +12,9 @@ export const handler: Handler = async (
 	const REGION = "us-east-1";
 	const TableName = "short-to-original-url";
 
-	// Split the path by '/' character and extract the last portion of it
-    //return event;
-	/*const pathSplit = event.path.split("/");
-	const shortUrl = pathSplit[pathSplit.length - 1];*/
-    const shortUrl = event.pathParameters;
+    return event.pathParameters;
+    const shortUrl = "event.pathParameters";
     
-    return shortUrl;
 	// Get original Url from db
 	const getItemParams = {
 		TableName,
