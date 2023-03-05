@@ -47,7 +47,7 @@ export const handler: Handler = async (
 		if (dbResult.Item) {
 			return dbResult.Item.shorturl.S.concat("     ", hashUrl);
 		}
-        return  hashUrl;
+    return "not found".concat(hashUrl);
 	} catch (err) {
 		console.log(err);
         return hashUrl;
