@@ -45,7 +45,7 @@ export const handler: Handler = async (
 	try {
 		const dbResult = await dynamodbClient.send(getItemCommand);
 		if (dbResult.Item) {
-			return dbResult.Item.short.S.concat("     ", urlHash);
+			return dbResult.Item["short"].S.concat("     ", urlHash);
 		}
 	} catch (err) {
 		console.log(err);
