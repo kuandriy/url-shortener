@@ -67,6 +67,7 @@ export const handler: Handler = async (
 
 	// Generate new short url
 	const newShortUrl = await generateNewShortUrl();
+    console.log('newShortUrl ================================================== ', newShortUrl);
 	const saveParams = {
 		TableName,
 		Item: {
@@ -113,5 +114,5 @@ async function generateNewShortUrl() {
 	}
 
     // Run it self recursively
-	return generateNewShortUrl();
+	return await generateNewShortUrl();
 }
