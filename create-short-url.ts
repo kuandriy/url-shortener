@@ -67,6 +67,7 @@ export const handler: Handler = async (
 	}
 
 	const newShortUrl = await generateNewShortUrl();
+    console.log(newShortUrl);
 	const saveParams = {
 		TableName,
 		Item: {
