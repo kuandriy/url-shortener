@@ -58,7 +58,7 @@ export const handler: Handler = async (
 			dynamodbClient,
 			getItemByHashParams
 		);
-		if (getItemResult) {
+		if (getItemResult[0]) {
 			return domain.concat("/", getItemResult[0].shorturl.S);
 		}
 	} catch (err) {
