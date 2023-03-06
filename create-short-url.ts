@@ -99,13 +99,14 @@ async function queryDynamoDB(params) {
 async function generateNewShortUrl() {
     // Generate new short id
 	const shortUrl = nanoid(shortUrlLength); 
-	const getItemParams = {
+	/*const getItemParams = {
 		TableName,
 		Key: {
 			shorturl: { S: shortUrl }
 		}
 	};
 
+    
     // Check if short uri already in use
 	const getItemResult = await queryDynamoDB(getItemParams);
 	if (!getItemResult[0]) {
@@ -115,4 +116,6 @@ async function generateNewShortUrl() {
 
     // Run it self recursively
 	return await generateNewShortUrl();
+    */
+   return shortUrl;
 }
