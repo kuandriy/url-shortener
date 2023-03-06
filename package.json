@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.284.0",
-    "aws-sdk": "^2.1328.0"
+    "aws-sdk": "^2.1328.0",
+    "nanoid": "^4.0.1"
   }
 }
